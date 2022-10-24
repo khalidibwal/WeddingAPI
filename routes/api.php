@@ -6,6 +6,7 @@ use App\Http\Controllers\API\userController;
 use App\Http\Controllers\API\venueController;
 use App\Http\Controllers\API\packageController;
 use App\Http\Controllers\API\categoryController;
+use App\Http\Controllers\API\cateringController;
 use App\Http\Controllers\API\weddingController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,9 @@ Route::post('package/store',[packageController::class,'store']);
 //all categories
 Route::get('category',[categoryController::class,'index']);
 Route::post('category/store',[categoryController::class,'store']);
+//all catering
+Route::get('catering',[cateringController::class,'index']);
+Route::post('catering/store',[cateringController::class,'store']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

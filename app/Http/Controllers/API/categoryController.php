@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\api;
-use App\Models\user_data;
-use App\Models\Wedding;
+use App\Models\category;
 use App\Helpers\WeddingAPI;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class userController extends Controller
+class categoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,7 @@ class userController extends Controller
      */
     public function index()
     {
-        $data =  User_data::Join('wo_desc', 'users.wo_desc_id', '=', 'wo_desc.id')
-        ->select('users.*','wo_desc.wo_name')
-        ->get();
+        $data = category::all();
         if($data){
             return WeddingAPI::createWeddingApi(200, 'Success', $data);
         }else{
@@ -44,30 +41,21 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        try{
             $request->validate([
-                'username' => 'required',
-                'password' => 'required',
-                'name' => 'required',
-                'email' => 'required',
-                'wo_desc_id' => 'required',
+                'categories' => 'required',
             ]);
-
-            $user_data = user_data::create([
-                'username' => $request-> username,
-                'password' => $request-> password,               
-                'name' => $request-> name,               
-                'email' => $request-> email,               
-                'wo_desc_id' => $request-> wo_desc_id,               
+            $category= category::create([
+                'categories' =>$request->categories
             ]);
-            $data = user_data::where('id', '=', $user_data->id)->get();
+            $data = category::where('id', '=', $category->id)->get();
             if($data){
                 return WeddingAPI::createWeddingApi(200, 'Success', $data);
             }else{
                 return WeddingAPI::createWeddingApi(400, 'Failed');
             }
-
-        } catch (\Throwable $th) {
+        }
+        catch(\Throwable $th){
             //throw $th;
         }
     }

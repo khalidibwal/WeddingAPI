@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\testController;
 use App\Http\Controllers\API\userController;
+use App\Http\Controllers\API\venueController;
+use App\Http\Controllers\API\packageController;
+use App\Http\Controllers\API\categoryController;
 use App\Http\Controllers\API\weddingController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +27,16 @@ Route::post('WeddingApi/store',[weddingController::class, 'store']);
 //all user data
 Route::get('userData',[userController::class, 'index']);
 Route::post('userData/store',[userController::class, 'store']);
+//all venue
+Route::get('venue',[venueController::class,'index']);
+Route::post('venue/store',[venueController::class,'store']);
+//all packages
+Route::get('package',[packageController::class,'index']);
+Route::post('package/store',[packageController::class,'store']);
+//all categories
+Route::get('category',[categoryController::class,'index']);
+Route::post('category/store',[categoryController::class,'store']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

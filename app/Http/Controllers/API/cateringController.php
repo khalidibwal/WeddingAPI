@@ -20,8 +20,10 @@ class cateringController extends Controller
         ->Join('users','users.id','=','catering.users_id')
         ->Join('category','category.id','=','catering.ctg_id')
         ->Join('packages','packages.id','=','catering.pkg_id')
-        ->select('catering.*','users.name','category.categories','packages.pkg_name')
+        ->select('catering.*','users.name','wo_desc.wo_name')
+        ->with(['package_data','category_data'])
         ->get();
+        // $data = catering::find(1);
         if($data){
             return WeddingAPI::createWeddingApi(200, 'Success', $data);
         }else{
